@@ -10,7 +10,7 @@ export const Footer = () => {
             <Truck size={24} className="trust-icon" />
             <div>
               <h4>Free Express Shipping</h4>
-              <p>On all orders over $50</p>
+              <p>On all orders over ₹500</p>
             </div>
           </div>
           <div className="trust-item">

@@ -118,7 +118,7 @@ export const Shop = () => {
           <div className="filter-block">
             <div className="filter-title">
               <SlidersHorizontal size={18} />
-              <span>Max Price: ${maxPrice}</span>
+              <span>Max Price: ₹{maxPrice}</span>
             </div>
             <input
               type="range"

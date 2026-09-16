@@ -210,7 +210,7 @@ export const Checkout = () => {
               </Link>
               <button type="submit" className="btn btn-primary btn-large">
                 <Lock size={18} />
-                <span>Place Order (${totalPrice.toFixed(2)})</span>
+                <span>Place Order (₹{totalPrice.toFixed(2)})</span>
               </button>
             </div>
           </form>
@@ -228,9 +228,9 @@ export const Checkout = () => {
                   <img src={item.thumbnail} alt={item.title} />
                   <div className="mini-info">
                     <span className="mini-title">{item.title}</span>
-                    <span className="mini-meta">{item.quantity} x ${item.price.toFixed(2)}</span>
+                    <span className="mini-meta">{item.quantity} x ₹{item.price.toFixed(2)}</span>
                   </div>
-                  <span className="mini-subtotal">${(item.quantity * item.price).toFixed(2)}</span>
+                  <span className="mini-subtotal">₹{(item.quantity * item.price).toFixed(2)}</span>
                 </div>
               ))}
             </div>
@@ -239,7 +239,7 @@ export const Checkout = () => {
 
             <div className="summary-row total-row">
               <span>Total Payable:</span>
-              <span className="final-price-text">${totalPrice.toFixed(2)}</span>
+              <span className="final-price-text">₹{totalPrice.toFixed(2)}</span>
             </div>
           </div>
         </div>

@@ -67,9 +67,9 @@ export const ProductCard = ({ product }) => {
 
         <div className="product-card-footer">
           <div className="product-price-box">
-            <span className="product-current-price">${product.price.toFixed(2)}</span>
+            <span className="product-current-price">₹{product.price.toFixed(2)}</span>
             {originalPrice && (
-              <span className="product-original-price">${originalPrice}</span>
+              <span className="product-original-price">₹{originalPrice}</span>
             )}
           </div>
           <button

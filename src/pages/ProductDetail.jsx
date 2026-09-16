@@ -142,9 +142,9 @@ export const ProductDetail = () => {
             <h1 className="detail-title">{product.title}</h1>
 
             <div className="detail-price-box">
-              <span className="detail-current-price">${product.price.toFixed(2)}</span>
+              <span className="detail-current-price">₹{product.price.toFixed(2)}</span>
               {originalPrice && (
-                <span className="detail-original-price">${originalPrice}</span>
+                <span className="detail-original-price">₹{originalPrice}</span>
               )}
             </div>
 
@@ -188,7 +188,7 @@ export const ProductDetail = () => {
                 <Truck size={20} />
                 <div>
                   <strong>Free Delivery</strong>
-                  <span>Orders over $50 qualify for free express shipping</span>
+                  <span>Orders over ₹500 qualify for free express shipping</span>
                 </div>
               </div>
               <div className="guarantee-item">
