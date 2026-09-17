@@ -14,7 +14,7 @@ export const Shop = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState('default');
-  const [maxPrice, setMaxPrice] = useState(2000);
+  const [maxPrice, setMaxPrice] = useState(200000);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -26,7 +26,11 @@ export const Shop = () => {
           throw new Error(`API Error: ${response.statusText}`);
         }
         const data = await response.json();
-        setProducts(data.products || []);
+        const formatted = (data.products || []).map((p) => ({
+          ...p,
+          price: Math.round(p.price * 85),
+        }));
+        setProducts(formatted);
       } catch (err) {
         console.error('Error fetching inventory:', err);
         setError('Failed to load shop inventory from DummyJSON REST endpoint.');
@@ -118,13 +122,13 @@ export const Shop = () => {
           <div className="filter-block">
             <div className="filter-title">
               <SlidersHorizontal size={18} />
-              <span>Max Price: ₹{maxPrice}</span>
+              <span>Max Price: ₹{maxPrice.toLocaleString('en-IN')}</span>
             </div>
             <input
               type="range"
               min="0"
-              max="2000"
-              step="10"
+              max="200000"
+              step="1000"
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
               className="price-slider"
@@ -145,7 +149,7 @@ export const Shop = () => {
             </select>
           </div>
 
-          {(searchQuery || selectedCategory !== 'all' || sortBy !== 'default' || maxPrice < 2000) && (
+          {(searchQuery || selectedCategory !== 'all' || sortBy !== 'default' || maxPrice < 200000) && (
             <button
               type="button"
               className="reset-filters-btn"
@@ -153,7 +157,7 @@ export const Shop = () => {
                 setSearchQuery('');
                 handleCategoryChange('all');
                 setSortBy('default');
-                setMaxPrice(2000);
+                setMaxPrice(200000);
               }}
             >
               <RefreshCw size={14} />

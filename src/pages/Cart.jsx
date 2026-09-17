@@ -85,7 +85,7 @@ export const Cart = () => {
                   </div>
 
                   <div className="col-price cart-item-price">
-                    ₹{item.price.toFixed(2)}
+                    ₹{Math.round(item.price).toLocaleString('en-IN')}
                   </div>
 
                   <div className="col-qty cart-item-qty">
@@ -109,7 +109,7 @@ export const Cart = () => {
                   </div>
 
                   <div className="col-total cart-item-subtotal">
-                    ₹{itemSubtotal.toFixed(2)}
+                    ₹{Math.round(itemSubtotal).toLocaleString('en-IN')}
                   </div>
 
                   <div className="col-action cart-item-remove">
@@ -147,7 +147,7 @@ export const Cart = () => {
 
             <div className="summary-row">
               <span>Items Total ({totalItems}):</span>
-              <span>₹{totalPrice.toFixed(2)}</span>
+              <span>₹{Math.round(totalPrice).toLocaleString('en-IN')}</span>
             </div>
 
             <div className="summary-row">
@@ -158,7 +158,7 @@ export const Cart = () => {
             {discountPercent > 0 && (
               <div className="summary-row discount-row">
                 <span>Discount ({discountPercent}%):</span>
-                <span>-₹{discountAmount.toFixed(2)}</span>
+                <span>-₹{Math.round(discountAmount).toLocaleString('en-IN')}</span>
               </div>
             )}
 
@@ -183,7 +183,7 @@ export const Cart = () => {
 
             <div className="summary-row total-row">
               <span>Aggregate Total:</span>
-              <span className="final-price-text">₹{finalTotal.toFixed(2)}</span>
+              <span className="final-price-text">₹{Math.round(finalTotal).toLocaleString('en-IN')}</span>
             </div>
 
             <button

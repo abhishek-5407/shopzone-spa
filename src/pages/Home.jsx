@@ -12,7 +12,11 @@ export const Home = () => {
       try {
         const response = await fetch('https://dummyjson.com/products?limit=8');
         const data = await response.json();
-        setFeaturedProducts(data.products || []);
+        const formatted = (data.products || []).map((p) => ({
+          ...p,
+          price: Math.round(p.price * 85),
+        }));
+        setFeaturedProducts(formatted);
       } catch (error) {
         console.error('Error fetching featured products:', error);
       } finally {
@@ -91,26 +95,6 @@ export const Home = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Mandatory Residency Sync Callout */}
-      <section className="sync-callout-section">
-        <div className="sync-callout-card">
-          <div className="sync-callout-info">
-            <div className="sync-callout-icon-box">
-              <PhoneCall size={28} />
-            </div>
-            <div>
-              <h3>Mandatory Action Item: 1-on-1 Sync</h3>
-              <p>
-                Complete your concise 3-minute sync with <strong>Mr. Nakul (8851407750)</strong> evaluating your Technical Communication KPI.
-              </p>
-            </div>
-          </div>
-          <a href="tel:8851407750" className="btn btn-dark">
-            Direct Dial: 8851407750
-          </a>
         </div>
       </section>
 

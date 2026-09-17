@@ -6,7 +6,6 @@ import { AuthProvider } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { Toast } from './components/Toast';
-import { SyncBanner } from './components/SyncBanner';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 // Pages
@@ -28,7 +27,6 @@ function App() {
       <CartProvider>
         <Router>
           <div className="app-layout">
-            <SyncBanner />
             <Navbar />
             <Toast />
             <main className="app-main-content">

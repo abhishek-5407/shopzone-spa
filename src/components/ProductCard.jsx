@@ -1,20 +1,30 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { Star, ShoppingBag, Eye } from 'lucide-react';
+import { Star, ShoppingBag, Eye, Check } from 'lucide-react';
+import { getProductUnit } from '../utils/productUtils';
 
 export const ProductCard = ({ product }) => {
   const { addToCart } = useCart();
+  const [isAdded, setIsAdded] = useState(false);
 
   if (!product) return null;
 
   const originalPrice = product.discountPercentage 
-    ? (product.price / (1 - product.discountPercentage / 100)).toFixed(2) 
+    ? Math.round(product.price / (1 - product.discountPercentage / 100))
     : null;
+
+  const unitText = getProductUnit(product);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
     e.stopPropagation();
     addToCart(product, 1);
+    
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+    }, 1500);
   };
 
   return (
@@ -42,12 +52,12 @@ export const ProductCard = ({ product }) => {
           </Link>
           <button
             type="button"
-            className="product-card-action-btn add"
+            className={`product-card-action-btn add ${isAdded ? 'added' : ''}`}
             onClick={handleAddToCart}
             title="Add to Cart"
           >
-            <ShoppingBag size={18} />
-            <span>Add</span>
+            {isAdded ? <Check size={18} /> : <ShoppingBag size={18} />}
+            <span>{isAdded ? 'Added' : 'Add'}</span>
           </button>
         </div>
       </div>
@@ -67,19 +77,20 @@ export const ProductCard = ({ product }) => {
 
         <div className="product-card-footer">
           <div className="product-price-box">
-            <span className="product-current-price">₹{product.price.toFixed(2)}</span>
+            <span className="product-current-price">₹{Math.round(product.price).toLocaleString('en-IN')}</span>
+            <span className="product-unit-pill">/ {unitText}</span>
             {originalPrice && (
-              <span className="product-original-price">₹{originalPrice}</span>
+              <span className="product-original-price">₹{originalPrice.toLocaleString('en-IN')}</span>
             )}
           </div>
           <button
             type="button"
-            className="product-add-btn"
+            className={`product-add-btn ${isAdded ? 'added' : ''}`}
             onClick={handleAddToCart}
             aria-label={`Add ${product.title} to cart`}
           >
-            <ShoppingBag size={16} />
-            <span>Add to Cart</span>
+            {isAdded ? <Check size={16} /> : <ShoppingBag size={16} />}
+            <span>{isAdded ? 'Added!' : 'Add to Cart'}</span>
           </button>
         </div>
       </div>

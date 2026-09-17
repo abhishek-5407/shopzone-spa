@@ -44,7 +44,7 @@ export const Footer = () => {
             </p>
             <div className="sync-footer-notice">
               <Phone size={14} />
-              <span>Mandatory 1-on-1 Sync: <strong>8851407750</strong> (Mr. Nakul)</span>
+              <span>Customer Support: <strong>+91 88514 07750</strong></span>
             </div>
           </div>
 
@@ -70,11 +70,11 @@ export const Footer = () => {
           </div>
 
           <div className="footer-col">
-            <h4 className="footer-heading">Engineering Residency</h4>
+            <h4 className="footer-heading">Customer Care</h4>
             <ul className="footer-contact">
-              <li><MapPin size={16} /> ShopZone Residency HQ</li>
+              <li><MapPin size={16} /> ShopZone HQ</li>
               <li><Mail size={16} /> support@shopzone.io</li>
-              <li><Phone size={16} /> 8851407750 (Mr. Nakul)</li>
+              <li><Phone size={16} /> +91 88514 07750</li>
             </ul>
           </div>
         </div>

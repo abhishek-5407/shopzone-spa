@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { Star, ShoppingBag, ArrowLeft, ShieldCheck, Truck, Plus, Minus, Box } from 'lucide-react';
+import { Star, ShoppingBag, ArrowLeft, ShieldCheck, Truck, Plus, Minus, Box, Scale, Check } from 'lucide-react';
+import { getProductUnit } from '../utils/productUtils';
 
 export const ProductDetail = () => {
   const { id } = useParams();
@@ -13,6 +14,7 @@ export const ProductDetail = () => {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdded, setIsAdded] = useState(false);
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -24,7 +26,11 @@ export const ProductDetail = () => {
           throw new Error('Product not found in repository');
         }
         const data = await response.json();
-        setProduct(data);
+        const formatted = {
+          ...data,
+          price: Math.round(data.price * 85),
+        };
+        setProduct(formatted);
         setSelectedImage(data.thumbnail || data.images?.[0]);
       } catch (err) {
         console.error('Error fetching product details:', err);
@@ -45,6 +51,10 @@ export const ProductDetail = () => {
   const handleAddToCart = () => {
     if (product) {
       addToCart(product, quantity);
+      setIsAdded(true);
+      setTimeout(() => {
+        setIsAdded(false);
+      }, 1500);
     }
   };
 
@@ -77,7 +87,7 @@ export const ProductDetail = () => {
   }
 
   const originalPrice = product.discountPercentage 
-    ? (product.price / (1 - product.discountPercentage / 100)).toFixed(2) 
+    ? Math.round(product.price / (1 - product.discountPercentage / 100))
     : null;
 
   return (
@@ -142,10 +152,16 @@ export const ProductDetail = () => {
             <h1 className="detail-title">{product.title}</h1>
 
             <div className="detail-price-box">
-              <span className="detail-current-price">₹{product.price.toFixed(2)}</span>
+              <span className="detail-current-price">₹{Math.round(product.price).toLocaleString('en-IN')}</span>
+              <span className="detail-unit-text">/ {getProductUnit(product)}</span>
               {originalPrice && (
-                <span className="detail-original-price">₹{originalPrice}</span>
+                <span className="detail-original-price">₹{originalPrice.toLocaleString('en-IN')}</span>
               )}
+            </div>
+
+            <div className="detail-unit-spec-box">
+              <Scale size={16} className="unit-icon" />
+              <span>Net Weight / Quantity: <strong>{getProductUnit(product)}</strong></span>
             </div>
 
             <p className="detail-description">{product.description}</p>
@@ -174,11 +190,11 @@ export const ProductDetail = () => {
 
               <button
                 type="button"
-                className="btn btn-primary add-to-cart-large"
+                className={`btn btn-primary add-to-cart-large ${isAdded ? 'added' : ''}`}
                 onClick={handleAddToCart}
               >
-                <ShoppingBag size={20} />
-                <span>Add {quantity} to Cart</span>
+                {isAdded ? <Check size={20} /> : <ShoppingBag size={20} />}
+                <span>{isAdded ? `Added ${quantity} to Cart!` : `Add ${quantity} to Cart`}</span>
               </button>
             </div>
 
